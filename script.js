@@ -37,6 +37,12 @@ sizer.appendChild(sizertext);
 sizer.appendChild(sizerinput);
 sidepanel.appendChild(sizer);
 
+// Add reset button
+reset = document.createElement("p");
+reset.textContent = "RESET";
+reset.id = "reset";
+sidepanel.appendChild(reset);
+
 // Detect change in sizer value
 var rainbow = 0;
 document.addEventListener("change", function(e) {
@@ -86,7 +92,9 @@ function grid() {
         alert("Invalid Value");
     }
 }
+
 grid();
+
 function getRGB() {
     var R = Math.floor(Math.random() * (255 - 0 + 1) + 0)
     var G = Math.floor(Math.random() * (255 - 0 + 1) + 0)
@@ -94,6 +102,7 @@ function getRGB() {
     return "rgb(" + R + "," + G + "," + B + ")";
 }
 console.log("value is", rainbowvalue.value);
+
 // Detect move, and change color.
 document.addEventListener("mousemove", function(e) {
     if (e.target.className == "horizontal" && rainbow == 1) {
@@ -104,5 +113,13 @@ document.addEventListener("mousemove", function(e) {
     else if (e.target.className == "horizontal") {
         console.log("hovered");
         e.target.style.backgroundColor = "white";
+    }
+})
+
+// Detect reset click
+document.addEventListener("click", function(r) {
+    if (r.target.id == "reset") {
+        container.innerHTML = "";
+        grid(); 
     }
 })
