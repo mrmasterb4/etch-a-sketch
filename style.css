@@ -50,4 +50,41 @@ body {
     width: 200px;
     height: 500px;
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+
+#sizer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#sizerinput {
+    text-align: center;
+    font-size: 25px;
+    width: 30%;
+}
+
+#sizerinput, p {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#rainbowdiv {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+p {
+    color: white;
+}
+
+#sidepanel > p {
+    font-size: 40px;
 }
