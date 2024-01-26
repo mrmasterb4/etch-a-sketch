@@ -23,6 +23,19 @@ rainbowvalue.type = "checkbox";
 rainbowdiv.appendChild(rainbowvalue);
 sidepanel.appendChild(rainbowdiv);
 
+
+// Progressive Color
+progressivediv = document.createElement("div");
+progressivediv.id = "progressivediv";
+progressivetext = document.createElement("p");
+progressivetext.textContent = "Toggle Color Growth";
+progressivediv.appendChild(progressivetext);
+progressivevalue = document.createElement("input");
+progressivevalue.id = "progressive";
+progressivevalue.type = "checkbox";
+progressivediv.appendChild(progressivevalue);
+sidepanel.appendChild(progressivediv);
+
 // Grid Sizing Handler
 sizer = document.createElement("div");
 sizer.id = "sizer";
@@ -45,6 +58,7 @@ sidepanel.appendChild(reset);
 
 // Detect change in sizer value
 var rainbow = 0;
+var progressive = 0;
 document.addEventListener("change", function(e) {
     if (e.target.id == sizerinput.id) {
         container.innerHTML = "";
@@ -58,6 +72,21 @@ document.addEventListener("change", function(e) {
         }
         else {
             rainbow = 0;
+            container.innerHTML = "";
+            grid();
+        }
+    }
+    else if (e.target.id == progressivevalue.id) {
+        if (progressive == 0) {
+            progressive = 1;
+            container.innerHTML = "";
+            grid();
+        }
+        else {
+            progressive = 0;
+            progR = 0;
+            progG = 0;
+            progB = 0;
             container.innerHTML = "";
             grid();
         }
@@ -80,6 +109,7 @@ function grid() {
                 horizontal.id = i + "-" + j
                 horizontal.className = "horizontal";
                 var p = document.createElement("p");
+                horizontal.style.backgroundColor = "blue";
                 horizontal.appendChild(p);
                 vertical.appendChild(horizontal);
             }
@@ -103,12 +133,56 @@ function getRGB() {
 }
 console.log("value is", rainbowvalue.value);
 
+// Function for color growth
+var progR = 0;
+var progG = 0;
+var progB = 0;
+
 // Detect move, and change color.
+var storedvalue = "";
+var progRGB = "";
+var RGBvalue = "";
 document.addEventListener("mousemove", function(e) {
     if (e.target.className == "horizontal" && rainbow == 1) {
         console.log(rainbowvalue.value);
         console.log("rainbow");
         e.target.style.backgroundColor = getRGB();
+    }
+    else if (e.target.className == "horizontal" && progressive == 1) {
+        var style = window.getComputedStyle(e.target);
+        progRGB = "";
+        var progColor = style.getPropertyValue("background-color");
+        for (let i = 0; i <= progColor.length - 1; i++) {
+            console.log(progColor);
+            if (progColor[i] == "," | progColor[i] == ")") {
+                console.log("Current i is ", i, "value is", progColor[i]);
+                console.log("Parsed", parseInt(storedvalue));
+                if (parseInt(storedvalue) < 255) {
+                    RGBvalue = 10 + parseInt(storedvalue);
+                }
+                else {
+                    console.log("else", storedvalue);
+                    RGBvalue = parseInt(storedvalue);
+                }
+                console.log("New value is", storedvalue);
+                console.log("rgb is", RGBvalue);
+                storedvalue = "";
+                progRGB = progRGB + RGBvalue + progColor[i];
+                console.log("prog is", progRGB);
+            }
+            else if (Number.isInteger(parseInt(progColor[i]))) {
+                storedvalue = storedvalue + progColor[i];
+                console.log("Current i is ", i, "value is", progColor[i]);
+                console.log("stored")
+                console.log(storedvalue);
+            }
+            else {
+                progRGB = progRGB + progColor[i];
+            }
+
+        }
+        console.log("Target RGB", progRGB);
+        e.target.style.backgroundColor = progRGB;
     }
     else if (e.target.className == "horizontal") {
         console.log("hovered");

@@ -75,7 +75,7 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-#rainbowdiv {
+#rainbowdiv, #progressivediv {
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -86,5 +86,5 @@ p {
 }
 
 #sidepanel > p {
-    font-size: 40px;
+    font-size: 35px;
 }
