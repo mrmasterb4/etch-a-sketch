@@ -158,7 +158,7 @@ document.addEventListener("mousemove", function(e) {
                 console.log("Current i is ", i, "value is", progColor[i]);
                 console.log("Parsed", parseInt(storedvalue));
                 if (parseInt(storedvalue) < 255) {
-                    RGBvalue = 10 + parseInt(storedvalue);
+                    RGBvalue = 25 + parseInt(storedvalue);
                 }
                 else {
                     console.log("else", storedvalue);
